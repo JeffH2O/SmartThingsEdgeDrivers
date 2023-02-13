@@ -1,0 +1,41 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "package",
+            "type": "shell",
+            "command": "smartthings edge:drivers:package ${workspaceFolder}/drivers/SmartThings/zwave-keypadlock"
+        },
+        {
+            "label": "assign",
+            "type": "shell",
+            "command": "smartthings edge:channels:assign 912f9b63-ccd5-4b01-aac6-77cc5680c2af"
+        },
+        {
+            "label": "install",
+            "type": "shell",
+            "command": "smartthings edge:drivers:install 912f9b63-ccd5-4b01-aac6-77cc5680c2af -C 76017e00-e888-4a88-bd1c-7ddee84462a8"
+        },
+        {
+            "label": "hublogcat",
+            "type": "shell",
+            "command": "smartthings edge:drivers:logcat --hub-address=192.168.86.243"
+        },
+        {
+            "label": "deploy",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "package",
+                "assign",
+                "install"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
