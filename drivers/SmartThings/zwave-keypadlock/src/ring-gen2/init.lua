@@ -84,32 +84,23 @@ local function entry_control_notification_handler(self, device, cmd)
     log.debug("Unhandled entry control event type: " .. event_type)
     return
   end
-  -- local component = device.profile.components[componentName]
-  -- if event_type == EntryControl.event_type.DISARM_ALL or event_type == EntryControl.event_type.ARM_HOME then
-  --   local pin = device.preferences.pin
-  --   if event_data ~= pin then
-  --     incorrect_pin(device)
-  --     return
-  --   end
-  -- end
-  -- device:emit_component_event(component, capabilities.button.button.pushed({state_change = true}))
 
-  local validPIN = false
+  local validCodeEntry = nil
   local enteredPIN = event_data
   local lockCodes = getLockCodes(device)
   for _, lockCode in pairs(lockCodes) do
     if lockCode.codePIN == enteredPIN then
-      validPIN = true
+      validCodeEntry = lockCode
       break
     end
   end
 
-  if not validPIN then
+  if validCodeEntry == nil then
     incorrect_pin(device)
     return
   end
 
-  log.debug("components" .. utils.stringify_table(device.profile.components, "", true))
+  log.trace("  Valid code entered: " .. utils.stringify_table(validCodeEntry))
   local component = device.profile.components.main
   if event_type == EntryControl.event_type.DISARM_ALL then
     device:emit_component_event(component, capabilities.lock.lock.unlocked())
@@ -281,42 +272,6 @@ local function device_init(self, device)
   -- log.debug(" lockCodesCapability: " .. utils.stringify_table(capabilities.lockCodes, "", true ))
   
 end
-
--- local function openDoor_command(self, device)
---   log.debug("OPEN GARAGE DOOR")
---   device:emit_event(capabilities.securitySystem.securitySystemStatus.armedAway())
---   device:send(Indicator:Set({
---       indicator_objects = {
---         {
---           indicator_id = Indicator.indicator_id.ARMED_AWAY,
---           property_id = Indicator.property_id.MULTILEVEL,
---           value = 100
---         },
---       }
---   }))
--- end
-
--- local function closeDoorAndCheckout_command(self, device)
---   log.debug("CLOSE GARAGE DOOR and CHECKOUT")
---   device:emit_event(capabilities.securitySystem.securitySystemStatus.armedStay())
---   device:send(Indicator:Set({
---       indicator_objects = {{
---         indicator_id = Indicator.indicator_id.ARMED_STAY,
---         property_id = Indicator.property_id.MULTILEVEL,
---         value = 100
---   }}}))
--- end
-
--- local function closeDoor_command(self, device)
---   log.debug("CLOSE GARAGE DOOR")
---   device:emit_event(capabilities.securitySystem.securitySystemStatus.disarmed())
---   device:send(Indicator:Set({
---       indicator_objects = {{
---         indicator_id = Indicator.indicator_id.NOT_ARMED,
---         property_id = Indicator.property_id.MULTILEVEL,
---         value = 0
---   }}}))
--- end
 
 local component_to_sound = {
   bypassRequired = 16,
@@ -528,15 +483,9 @@ end
 
 local function emitLockCodes(device)
   local lockCodes = getLockCodes(device)
-
-  --Only publish codeSlot & name values (NOT the PINs)
-  -- exampe: {1="name1", 2="name2"}
-  local lockCodesToPublish = {}
-  for codeSlot, value in pairs(lockCodes) do
-    lockCodesToPublish[codeSlot] = value.codeName
-  end
-
-  device:emit_event(capabilities.lockCodes.lockCodes(json.encode(lockCodesToPublish), {visibility = {displayed = false }}))
+  --should we NOT publish the PINs?  For now I am so that other apps CAN see the PINs
+  --If this deems to not be compatible with SLGA or something else, or is a security vulnerabiliyt, may need to re-think this.
+  device:emit_event(capabilities.lockCodes.lockCodes(json.encode(lockCodes), {visibility = {displayed = false }}))
 end
 
 local function debugPrintLockCodes(device)
@@ -569,10 +518,6 @@ local function lockCodes_deleteCode(self, device, cmd)
   code_changed_event.value = tostring(cmd.args.codeSlot) .. LockCodesDefaults.CHANGE_TYPE.DELETED
   device:emit_event(code_changed_event)
 
-end
-
-local function lockCodes_lock(self, device, cmd)
-  log.debug("lockCodes_lock")
 end
 
 local function lockCodes_nameSlot(self, device, cmd)
@@ -694,10 +639,6 @@ local function lockCodes_setCodeLength(self, device, cmd)
   log.debug("  cmd:    " .. utils.stringify_table(cmd, "", true))
 end
 
-local function lockCodes_unlock(self, device, cmd)
-  log.debug("lockCodes_unlock")
-end
-
 local function lockCodes_unlockWithTimeout(self, device, cmd)
   log.debug("lockCodes_unlockWithTimeout")
 end
@@ -705,6 +646,19 @@ end
 local function lockCodes_updateCodes(self, device, cmd)
   log.debug("lockCodes_updateCodes")
 end
+
+local function generic_lock(self, device, cmd)
+  log.debug("generic_lock (lock_lock or lockCodes_lock)")
+  device:emit_event(capabilities.lock.lock.locked())
+  device:emit_event(capabilities.lockCodes.lock.locked())
+end
+
+local function generic_unlock(self, device, cmd)
+  log.debug("generic_unlock (lock_unlock or lockCodes_unlock)")
+  device:emit_event(capabilities.lock.lock.unlocked())
+  device:emit_event(capabilities.lockCodes.lock.unlocked())
+end
+
 
 local function zwave_configuration_report(self, device, cmd)
   log.debug("zwave_configuration_report")
@@ -740,13 +694,13 @@ local ring_gen2 = {
     },
     [capabilities.lockCodes.ID] = {
       [capabilities.lockCodes.commands.deleteCode.NAME] = lockCodes_deleteCode,
-      [capabilities.lockCodes.commands.lock.NAME] = lockCodes_lock,
+      [capabilities.lockCodes.commands.lock.NAME] = generic_lock,
       [capabilities.lockCodes.commands.nameSlot.NAME] = lockCodes_nameSlot,
       [capabilities.lockCodes.commands.reloadAllCodes.NAME] = lockCodes_reloadAllCodes,
       [capabilities.lockCodes.commands.requestCode.NAME] = lockCodes_requestCode,
       [capabilities.lockCodes.commands.setCode.NAME] = lockCodes_setCode,
       [capabilities.lockCodes.commands.setCodeLength.NAME] = lockCodes_setCodeLength,
-      [capabilities.lockCodes.commands.unlock.NAME] = lockCodes_unlock,
+      [capabilities.lockCodes.commands.unlock.NAME] = generic_unlock,
       [capabilities.lockCodes.commands.unlockWithTimeout.NAME] = lockCodes_unlockWithTimeout,
       [capabilities.lockCodes.commands.updateCodes.NAME] = lockCodes_updateCodes,
     },
@@ -756,10 +710,10 @@ local ring_gen2 = {
     --   [capabilities.alarm.commands.siren.NAME] = alarm_siren,
     --   [capabilities.alarm.commands.strobe.NAME] = alarm_strobe,
     -- },
-    -- [capabilities.lock.ID] = {
-    --   [capabilities.lock.commands.lock.NAME] = openDoor_command,
-    --   [capabilities.lock.commands.unlock.NAME] = closeDoor_command,
-    -- },
+    [capabilities.lock.ID] = {
+      [capabilities.lock.commands.lock.NAME] = generic_lock,
+      [capabilities.lock.commands.unlock.NAME] = generic_unlock,
+    },
   },
   lifecycle_handlers = {
     init = device_init,

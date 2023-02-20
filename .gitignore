@@ -3,3 +3,5 @@
 .idea/
 docs/
 lua_libs-api_*
+.vscode
+!.vscode/tasks.json
