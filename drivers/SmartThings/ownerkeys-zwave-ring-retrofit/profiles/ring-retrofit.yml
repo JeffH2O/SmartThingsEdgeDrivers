@@ -1,0 +1,62 @@
+name: ring-retrofit
+components:
+- id: main
+  capabilities:
+  - id: battery
+    version: 1
+  - id: refresh
+    version: 1
+  # - id: notification
+  #   version: 8
+  categories:
+    - name: RemoteController
+preferences:
+  - title: "Heartbeats"
+    name: heartbeats
+    description: "Number of seconds between periodic battery reports."
+    required: true
+    preferenceType: integer
+    definition:
+      default: 4200
+      minimum: 255
+      maximum: 4200
+  # - title: "Low battery threshold"
+  #   name: lowBatteryTrshld
+  #   description: "The percentage level at which the display would turn on the yellow battery indicator (whenever the display is on)"
+  #   required: true
+  #   preferenceType: integer
+  #   definition:
+  #     default: 30 # another documentation says 30
+  #     minimum: 0
+  #     maximum: 100
+  # - title: "Warn battery threshold"
+  #   name: warnBatteryTrshld
+  #   description: "The percentage level at which the display would turn on the red battery indicator (whenever the display is on)"
+  #   required: true
+  #   preferenceType: integer
+  #   definition:
+  #     default: 20 # another documentation says 10
+  #     minimum: 0
+  #     maximum: 100
+  # - title: "Language set"
+  #   name: language
+  #   description: "Voice language"
+  #   required: true
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       0: "English (US)"
+  #       1: "English (UK)"
+  #       2: "French"
+  #       3: "German"
+  #       4: "Italian"
+  #       5: "Spanish"
+  #       6: "Dutch"
+  #       7: "Danish"
+  #       8: "Norwegian"
+  #       9: "Swedish"
+  #       10: "Finnish"
+  #       11: "Arabic"
+  #       12: "LANG_12"
+  #       13: "LANG_13"
+  #     default: 0

@@ -1,0 +1,4 @@
+name: 'Z-Wave Ring Retrofit Alarm Kit'
+packageKey: 'ownerkeys-zwave-ring-retrofit'
+permissions:
+  zwave: {}

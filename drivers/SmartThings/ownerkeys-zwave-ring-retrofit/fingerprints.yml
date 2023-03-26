@@ -1,0 +1,7 @@
+zwaveManufacturer:
+  - id: Ring/RetrofitAlarmKit
+    deviceLabel: Ring Retrofit Alarm Kit
+    manufacturerId: 0x0346
+    productType: 0x0B01
+    productId: 0x0101
+    deviceProfileName: ring-retrofit
