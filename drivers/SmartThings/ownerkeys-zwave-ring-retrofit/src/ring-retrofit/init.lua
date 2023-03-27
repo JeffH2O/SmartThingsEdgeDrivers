@@ -47,7 +47,7 @@ local function notification_report_handler(self, device, cmd)
       device:emit_event(capabilities.tamperAlert.tamper.detected())
     end
   end
-  
+
   -- if notification_type == Notification.notification_type.POWER_MANAGEMENT then
   --   local event = args.event
   --   -- if event == Notification.event.power_management.AC_MAINS_RE_CONNECTED then
@@ -84,7 +84,7 @@ local function device_do_configure(self, device)
   log.trace("device_do_configure")
   device:refresh()
 
-  device:send(WakeUp:IntervalSet({node_id = self.environment_info.hub_zwave_id, seconds = 60}))
+  device:send(WakeUp:IntervalSet({node_id = self.environment_info.hub_zwave_id, seconds = 3600}))
 
   -- device:send(MultiChannelAssociation:Remove({grouping_identifier = 1, node_ids = {}}))
   -- device:send(Configuration:Set({ configuration_value = 1, parameter_number = 250, size = 1 }))
@@ -182,6 +182,8 @@ end
 local function device_init(self, device)
   log.debug(utils.stringify_table(device, "device_init: ", true))
   device:set_update_preferences_fn(update_preferences)
+
+  device:emit_event(capabilities.tamperAlert.tamper.clear())
   
   device:emit_component_event(device.profile.components["zone1"], capabilities.contactSensor.contact.closed())
   device:emit_component_event(device.profile.components["zone2"], capabilities.contactSensor.contact.closed())
