@@ -1,0 +1,640 @@
+{
+    capability_channel={
+      class="capability{}", 
+      inner_sock={
+        timeout=0, 
+      }, 
+      wakers={
+        recvr=function: 0x10a5420, 
+      }, 
+    }, 
+    datastore={
+      __devices_store={
+        4345875c-c22e-4416-995b-ec94ca93c992={
+          __curr_pref_key={
+            heartbeats=4200, 
+          }, 
+          __state_cache={
+            main={
+              battery={
+                battery={
+                  value=100, 
+                }, 
+              }, 
+            }, 
+            zone1={
+              contactSensor={
+                contact={
+                  value="open", 
+                }, 
+              }, 
+            }, 
+          }, 
+        }, 
+        63b32fa0-07df-4263-81e8-c1c0259a77f3={
+          __curr_pref_key={
+            heartbeats=4000, 
+          }, 
+          __state_cache={
+            main={
+              battery={
+                battery={
+                  value=100, 
+                }, 
+              }, 
+            }, 
+          }, 
+        }, 
+        71ecbca8-8b0b-4b69-93f4-bf60e47925e1={
+          __curr_pref_key={
+            heartbeats=4200, 
+          }, 
+          __state_cache={
+            main={
+              battery={
+                battery={
+                  value=100, 
+                }, 
+              }, 
+            }, 
+          }, 
+        }, 
+        b5a075d7-c38c-4003-baa8-98016b8f6a71={
+          __curr_pref_key={
+            heartbeats=1000, 
+          }, 
+          __state_cache={
+            main={
+              battery={
+                battery={
+                  value=100, 
+                }, 
+              }, 
+            }, 
+          }, 
+        }, 
+      }, 
+    }, 
+    device_api={
+      create_device=function: 0xf7b4f8, 
+      device_offline=function: 0xf7f260, 
+      device_online=function: 0xf7f220, 
+      get_device_info=function: 0xf7eaa8, 
+      get_device_list=function: 0xf7e998, 
+      update_device=function: 0xf76160, 
+    }, 
+    driver={
+      NAME="zwave_retrofit", 
+      _driver_thread={
+        driver=RecursiveTable: driver, 
+        receiver={
+          link={
+            closed=false, 
+            queue={}, 
+            waker=function: 0xf85b00, 
+          }, 
+        }, 
+        sender={
+          link=RecursiveTable: link, 
+        }, 
+        timers={}, 
+        watched_sockets={}, 
+      }, 
+      _resync={
+        link={
+          closed=false, 
+          queue={}, 
+          waker=function: 0xf86028, 
+        }, 
+      }, 
+      cache={}, 
+      capability_channel=RecursiveTable: capability_channel, 
+      capability_dispatcher={
+        child_dispatchers={
+          {
+            child_dispatchers={}, 
+            default_handlers={}, 
+            dispatcher_class_name="CapabilityCommandDispatcher", 
+            dispatcher_filter=function: 0x108da30, 
+            name="Ring Retrofit Alarm Kit", 
+            parent=RecursiveTable: capability_dispatcher, 
+          }, 
+        }, 
+        default_handlers={
+          refresh={
+            refresh=function: 0xf9ef60, 
+          }, 
+        }, 
+        dispatcher_class_name="CapabilityCommandDispatcher", 
+        dispatcher_filter=function: 0x1058638, 
+        name="zwave_retrofit", 
+      }, 
+      capability_handlers={
+        refresh={
+          refresh=function: 0xf9ef60, 
+        }, 
+      }, 
+      datastore=RecursiveTable: datastore, 
+      device_api=RecursiveTable: device_api, 
+      device_cache={
+        4345875c-c22e-4416-995b-ec94ca93c992=RecursiveTable: xxxx, 
+      }, 
+      discovery_channel={
+        class="discovery{}", 
+        inner_sock={
+          timeout=0, 
+        }, 
+        wakers={
+          recvr=function: 0xf8ccf0, 
+        }, 
+      }, 
+      discovery_state={}, 
+      driver_lifecycle_channel={
+        class="driver_lifecycle{}", 
+        inner_sock={
+          timeout=0, 
+        }, 
+        wakers={
+          recvr=function: 0xf82898, 
+        }, 
+      }, 
+      environment_channel={
+        inner_sock={
+          timeout=0, 
+        }, 
+        wakers={}, 
+      }, 
+      environment_info={
+        hub_zigbee_eui="\x28\x6D\x97\x00\x02\x0B\xFB\xA8", 
+      }, 
+      get_default_refresh_commands={
+        battery=function: 0x1091918, 
+        contactSensor=function: 0x1091ba8, 
+      }, 
+      lifecycle_channel={
+        class="device_lifecycle{}", 
+        inner_sock={
+          timeout=0, 
+        }, 
+        wakers={
+          recvr=function: 0xf90048, 
+        }, 
+      }, 
+      lifecycle_dispatcher={
+        child_dispatchers={
+          {
+            child_dispatchers={}, 
+            default_handlers={
+              added=function: 0x106e460, 
+              doConfigure=function: 0x106b860, 
+              infoChanged=function: 0x106e190, 
+              init=function: 0x108da80, 
+            }, 
+            dispatcher_class_name="DeviceLifecycleDispatcher", 
+            dispatcher_filter=function: 0x108da30, 
+            name="Ring Retrofit Alarm Kit", 
+            parent=RecursiveTable: lifecycle_dispatcher, 
+          }, 
+        }, 
+        default_handlers={
+          doConfigure=function: 0xfa3130, 
+          driverSwitched=function: 0xfd5e18, 
+          init=function: 0xf726c0, 
+        }, 
+        dispatcher_class_name="DeviceLifecycleDispatcher", 
+        dispatcher_filter=function: 0x107dbe0, 
+        fallback_handler=function: 0xfd97a8, 
+        name="zwave_retrofit", 
+      }, 
+      lifecycle_handlers={
+        doConfigure=function: 0xfa3130, 
+        driverSwitched=function: 0xfd5e18, 
+        fallback=function: 0xfd97a8, 
+        init=function: 0xf726c0, 
+      }, 
+      message_handlers={
+        table: 0x1091d80={
+          callback=function: 0xf90e90, 
+          name="unnamed", 
+        }, 
+        table: 0x1091f58={
+          callback=function: 0xfd4c88, 
+          name="capability", 
+        }, 
+        table: 0x1091ff8={
+          callback=function: 0xfd4868, 
+          name="discovery", 
+        }, 
+        table: 0x109a268={
+          callback=function: 0xfd1e58, 
+          name="environment_info", 
+        }, 
+        table: 0x109a350={
+          callback=function: 0xfd0ff0, 
+          name="device_lifecycle", 
+        }, 
+        table: 0x109a438={
+          callback=function: 0xfd1010, 
+          name="driver_lifecycle", 
+        }, 
+        table: 0x10a8ea0={
+          callback=function: 0x1078ef0, 
+          name="_resync", 
+        }, 
+      }, 
+      sub_drivers={
+        {
+          NAME="Ring Retrofit Alarm Kit", 
+          can_handle=function: 0x108da30, 
+          capability_dispatcher={
+            child_dispatchers={}, 
+            default_handlers={}, 
+            dispatcher_class_name="CapabilityCommandDispatcher", 
+            dispatcher_filter=function: 0x108da30, 
+            name="Ring Retrofit Alarm Kit", 
+            parent=RecursiveTable: capability_dispatcher, 
+          }, 
+          capability_handlers={}, 
+          lifecycle_dispatcher={
+            child_dispatchers={}, 
+            default_handlers=RecursiveTable: default_handlers, 
+            dispatcher_class_name="DeviceLifecycleDispatcher", 
+            dispatcher_filter=function: 0x108da30, 
+            name="Ring Retrofit Alarm Kit", 
+            parent=RecursiveTable: lifecycle_dispatcher, 
+          }, 
+          lifecycle_handlers={
+            added=function: 0x106e460, 
+            doConfigure=function: 0x106b860, 
+            infoChanged=function: 0x106e190, 
+            init=function: 0x108da80, 
+          }, 
+          sub_drivers={}, 
+          zwave_dispatcher={
+            child_dispatchers={}, 
+            default_handlers={
+              32={
+                function: 0x1067180, 
+                function: 0x108daa8, 
+              }, 
+              112={
+                6=function: 0x1070e38, 
+              }, 
+              113={
+                5=function: 0x108da58, 
+              }, 
+              132={
+                7={
+                  function: 0x105b350, 
+                  function: 0x1070e80, 
+                }, 
+              }, 
+            }, 
+            dispatcher_class_name="ZwaveDispatcher", 
+            dispatcher_filter=function: 0x108da30, 
+            name="Ring Retrofit Alarm Kit", 
+            parent={
+              child_dispatchers={
+                RecursiveTable: zwave_dispatcher, 
+              }, 
+              default_handlers={
+                32={
+                  3={
+                    function: 0x1038c40, 
+                  }, 
+                }, 
+                48={
+                  3={
+                    function: 0x103cd40, 
+                  }, 
+                }, 
+                113={
+                  5={
+                    function: 0x1095418, 
+                    function: 0x103c300, 
+                  }, 
+                }, 
+                128={
+                  3={
+                    function: 0x1096788, 
+                  }, 
+                }, 
+                132={
+                  7={
+                    function: 0x105b350, 
+                    function: 0x1042580, 
+                  }, 
+                }, 
+                156={
+                  2={
+                    function: 0x103c2c0, 
+                  }, 
+                }, 
+              }, 
+              dispatcher_class_name="ZwaveDispatcher", 
+              dispatcher_filter=function: 0x107f4b8, 
+              name="zwave_retrofit", 
+            }, 
+          }, 
+          zwave_handlers={
+            32={
+              function: 0x1067180, 
+              function: 0x108daa8, 
+            }, 
+            112={
+              6=function: 0x1070e38, 
+            }, 
+            113={
+              5=function: 0x108da58, 
+            }, 
+            132={
+              7={
+                function: 0x105b350, 
+                function: 0x1070e80, 
+              }, 
+            }, 
+          }, 
+        }, 
+      }, 
+      supported_capabilities={
+        {
+          ID="refresh", 
+          NAME="Refresh", 
+          add_attribute=function: 0xf61f90, 
+          add_command=function: 0xf62038, 
+          commands={
+            refresh={
+              ID="refresh", 
+              NAME="refresh", 
+              arg_list={}, 
+              capability={
+                ID="refresh", 
+                NAME="Refresh", 
+                add_attribute=function: 0xf61f90, 
+                add_command=function: 0xf62038, 
+                commands=RecursiveTable: commands, 
+                version=1, 
+              }, 
+            }, 
+          }, 
+          version=1, 
+        }, 
+        {
+          ID="battery", 
+          NAME="Battery", 
+          add_attribute=function: 0xf61f90, 
+          add_command=function: 0xf62038, 
+          battery={
+            ID="battery", 
+            NAME="battery", 
+            capability={
+              ID="battery", 
+              NAME="Battery", 
+              add_attribute=function: 0xf61f90, 
+              add_command=function: 0xf62038, 
+              battery=RecursiveTable: battery, 
+              commands={}, 
+              version=1, 
+            }, 
+            schema={
+              additionalProperties=false, 
+              properties={
+                unit={
+                  default="%", 
+                  enum={
+                    "%", 
+                  }, 
+                  type="string", 
+                }, 
+                value={
+                  maximum=100, 
+                  minimum=0, 
+                  type="integer", 
+                }, 
+              }, 
+              required={
+                "value", 
+              }, 
+              title="IntegerPercent", 
+              type="object", 
+            }, 
+          }, 
+          commands={}, 
+          version=1, 
+        }, 
+        {
+          ID="contactSensor", 
+          NAME="Contact Sensor", 
+          add_attribute=function: 0xf61f90, 
+          add_command=function: 0xf62038, 
+          commands={}, 
+          contact={
+            ID="contact", 
+            NAME="contact", 
+            capability={
+              ID="contactSensor", 
+              NAME="Contact Sensor", 
+              add_attribute=function: 0xf61f90, 
+              add_command=function: 0xf62038, 
+              commands={}, 
+              contact=RecursiveTable: contact, 
+              version=1, 
+            }, 
+            closed={
+              NAME="closed", 
+              attribute=RecursiveTable: contact, 
+            }, 
+            open={
+              NAME="open", 
+              attribute=RecursiveTable: contact, 
+            }, 
+            schema={
+              additionalProperties=false, 
+              properties={
+                value={
+                  enum={
+                    "closed", 
+                    "open", 
+                  }, 
+                  title="ContactState", 
+                  type="string", 
+                }, 
+              }, 
+              required={
+                "value", 
+              }, 
+              type="object", 
+            }, 
+          }, 
+          version=1, 
+        }, 
+        {
+          ID="zwMultichannel", 
+          NAME="Zw Multichannel", 
+          add_attribute=function: 0xf61f90, 
+          add_command=function: 0xf62038, 
+          commands={
+            enableEpEvents={
+              ID="enableEpEvents", 
+              NAME="enableEpEvents", 
+              arg_list={
+                {
+                  name="enabledEndpoints", 
+                  optional=false, 
+                  schema={
+                    maxLength=255, 
+                    title="String", 
+                    type="string", 
+                  }, 
+                }, 
+              }, 
+              capability={
+                ID="zwMultichannel", 
+                NAME="Zw Multichannel", 
+                add_attribute=function: 0xf61f90, 
+                add_command=function: 0xf62038, 
+                commands=RecursiveTable: commands, 
+                epEvent={
+                  ID="epEvent", 
+                  NAME="epEvent", 
+                  capability=RecursiveTable: capability, 
+                  schema={
+                    additionalProperties=false, 
+                    properties={
+                      value={
+                        maxLength=255, 
+                        title="String", 
+                        type="string", 
+                      }, 
+                    }, 
+                    required={}, 
+                    type="object", 
+                  }, 
+                }, 
+                epInfo={
+                  ID="epInfo", 
+                  NAME="epInfo", 
+                  capability=RecursiveTable: capability, 
+                  schema={
+                    additionalProperties=false, 
+                    properties={
+                      value={
+                        maxLength=255, 
+                        title="String", 
+                        type="string", 
+                      }, 
+                    }, 
+                    required={}, 
+                    type="object", 
+                  }, 
+                }, 
+                version=1, 
+              }, 
+            }, 
+            epCmd={
+              ID="epCmd", 
+              NAME="epCmd", 
+              arg_list={
+                {
+                  name="endpoint", 
+                  optional=false, 
+                  schema={
+                    title="Number", 
+                    type="number", 
+                  }, 
+                }, 
+                {
+                  name="commands", 
+                  optional=false, 
+                  schema={
+                    maxLength=255, 
+                    title="String", 
+                    type="string", 
+                  }, 
+                }, 
+              }, 
+              capability=RecursiveTable: capability, 
+            }, 
+          }, 
+          epEvent=RecursiveTable: epEvent, 
+          epInfo=RecursiveTable: epInfo, 
+          version=1, 
+        }, 
+      }, 
+      timer_api={
+        _wake=function: 0xfc0a58, 
+        cancel=function: 0xfcad48, 
+        create_interval=function: 0xfc2cd0, 
+        create_oneshot=function: 0xfc2ba8, 
+        handled=function: 0xfc95e8, 
+        settimeout=function: 0xfc8440, 
+        setwaker=function: 0xfc9700, 
+        wait=function: 0xfc9570, 
+      }, 
+      zwave_channel={
+        class="zwave", 
+        inner_sock={
+          timeout=0, 
+        }, 
+        wakers={
+          recvr=function: 0xf828c0, 
+        }, 
+      }, 
+      zwave_dispatcher=RecursiveTable: parent, 
+      zwave_handlers={
+        32={
+          3={
+            function: 0x1038c40, 
+          }, 
+        }, 
+        48={
+          3={
+            function: 0x103cd40, 
+          }, 
+        }, 
+        113={
+          5={
+            function: 0x1095418, 
+            function: 0x103c300, 
+          }, 
+        }, 
+        128={
+          3={
+            function: 0x1096788, 
+          }, 
+        }, 
+        132={
+          7={
+            function: 0x105b350, 
+            function: 0x1042580, 
+          }, 
+        }, 
+        156={
+          2={
+            function: 0x103c2c0, 
+          }, 
+        }, 
+      }, 
+    }, 
+    log={}, 
+    override_fns={}, 
+    persistent_store=RecursiveTable: 4345875c-c22e-4416-995b-ec94ca93c992, 
+    state_cache=RecursiveTable: __state_cache, 
+    thread={
+      driver=RecursiveTable: driver, 
+      receiver={
+        link={
+          closed=false, 
+          queue={}, 
+        }, 
+      }, 
+      sender={
+        link=RecursiveTable: link, 
+      }, 
+      timers={}, 
+      watched_sockets={}, 
+    }, 
+    transient_store={}, 
+    zwave_channel=RecursiveTable: zwave_channel, 
+  }
+  

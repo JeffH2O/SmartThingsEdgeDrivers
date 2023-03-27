@@ -6,10 +6,60 @@ components:
     version: 1
   - id: refresh
     version: 1
+  - id: tamperAlert
+    version: 1
   # - id: notification
   #   version: 8
   categories:
-    - name: RemoteController
+    - name: ContactSensor
+- id: zone1
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone2
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone3
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone4
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone5
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone6
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone7
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
+- id: zone8
+  capabilities:
+  - id: contactSensor
+    version: 1
+  categories: 
+  - name: ContactSensor
 preferences:
   - title: "Heartbeats"
     name: heartbeats
