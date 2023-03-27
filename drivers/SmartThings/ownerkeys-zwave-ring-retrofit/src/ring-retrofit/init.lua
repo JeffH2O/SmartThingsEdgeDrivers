@@ -28,21 +28,26 @@ local function can_handle(opts, driver, device, ...)
 end
 
 local function notification_report_handler(self, device, cmd)
-  log.trace("NotificationReportHandler:  cmd.args=" .. utils.stringify_table(cmd.args))
+  log.trace("NotificationReportHandler:  cmd.args=" .. utils.stringify_table(cmd.args, "", true))
   local args = cmd.args
   local notification_type = args.notification_type
   local event = args.event
 
   if notification_type == Notification.notification_type.HOME_SECURITY then
+    --event_parmeter 2 = zones? 3 = tamper?
     if event == Notification.event.home_security.STATE_IDLE then
-      device:emit_component_event(device.profile.components["zone1"], capabilities.contactSensor.contact.closed())
-    else 
-      if event == Notification.event.home_security.INTRUSION then
-        device:emit_component_event(device.profile.components["zone1"], capabilities.contactSensor.contact.open())
+      if args.event_parameter == "\x02" then
+        device:emit_component_event(device.profile.components["zone1"], capabilities.contactSensor.contact.closed())
+      elseif args.event_parameter == "\x03" then
+        device:emit_event(capabilities.tamperAlert.tamper.clear())
       end
+    elseif event == Notification.event.home_security.INTRUSION then
+      device:emit_component_event(device.profile.components["zone1"], capabilities.contactSensor.contact.open())
+    elseif event == Notification.event.home_security.TAMPERING_PRODUCT_COVER_REMOVED then
+      device:emit_event(capabilities.tamperAlert.tamper.detected())
     end
   end
-
+  
   -- if notification_type == Notification.notification_type.POWER_MANAGEMENT then
   --   local event = args.event
   --   -- if event == Notification.event.power_management.AC_MAINS_RE_CONNECTED then
@@ -69,6 +74,8 @@ local function notification_report_handler(self, device, cmd)
 
   -- {args={event="STATE_IDLE", event_parameter="\x02", z_wave_alarm_event=0,           payload="\x00\x00\x00\xFF\x07\x00\x01\x02",
   -- {args={event="INTRUSION",  event_parameter="",     z_wave_alarm_event="INTRUSION", payload="\x00\x00\x00\xFF\x07\x02\x00",   
+  -- {event="STATE_IDLE",                      event_parameter="\x03", , z_wave_alarm_event=0,                                 z_wave_alarm_status="ON", z_wave_alarm_type="BURGLAR", zensor_net_source_node_id=0}, cmd_class="NOTIFICATION", cmd_id="REPORT", dst_channels={}, encap="S2_AUTH", payload="\x00\x00\x00\xFF\x07\x00\x01\x03", src_channel=0, version=3}
+  -- {event="TAMPERING_PRODUCT_COVER_REMOVED", event_parameter="",     , z_wave_alarm_event="TAMPERING_PRODUCT_COVER_REMOVED", z_wave_alarm_status="ON", z_wave_alarm_type="BURGLAR", zensor_net_source_node_id=0}, cmd_class="NOTIFICATION", cmd_id="REPORT", dst_channels={}, encap="S2_AUTH", payload="\x00\x00\x00\xFF\x07\x03\x00", src_channel=0, version=3}
 
 end
 
@@ -216,7 +223,7 @@ end
 
 local function wakeup_notification(self, device, cmd)
   log.debug("wakeup_notification")
-  log.debug("  cmd:    " .. utils.stringify_table(cmd, "", true))
+  --log.debug("  cmd:    " .. utils.stringify_table(cmd, "", true))
   --local parameter_number = cmd.args.parameter_number
   --TODO??? set device options/preferences/configs if we missed them while it was asleep?
 end
